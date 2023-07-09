@@ -1,0 +1,61 @@
+columns:
+  - Date: object
+  - Location: object
+  - MinTemp: float64
+  - MaxTemp: float64
+  - Rainfall: float64
+  - Evaporation: float64
+  - Sunshine: float64
+  - WindGustDir: object
+  - WindGustSpeed: float64
+  - WindDir9am: object
+  - WindDir3pm: object
+  - WindSpeed9am: float64
+  - WindSpeed3pm: float64
+  - Humidity9am: int64
+  - Humidity3pm: int64
+  - Pressure9am: float64
+  - Pressure3pm: float64
+  - Cloud9am: float64
+  - Cloud3pm: float64
+  - Temp9am: float64
+  - Temp3pm: float64
+  - RainToday: object
+  - RISK_MM: float64
+  - RainTomorrow: object
+
+
+numerical_columns:
+  - MinTemp
+  - MaxTemp
+  - Rainfall
+  - Evaporation
+  - Sunshine
+  - WindGustSpeed
+  - WindSpeed9am
+  - WindSpeed3am
+  - Humidity9am
+  - Humidity3pm
+  - Pressure9am
+  - Pressure3pm
+  - Cloud9am
+  - Cloud3am
+  - Temp9am
+  - Temp3pm
+
+drop_columns:
+  - RISK_MM
+
+onehot_columns:
+  - WindDir9am
+  - WindDir3pm
+  - WindGustDir
+  - Date
+  - Location
+
+
+binary_columns:
+  - RainTomorrow
+  - RainToday
+
+target_column: RainTomorrow

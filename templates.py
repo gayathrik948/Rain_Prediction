@@ -14,7 +14,7 @@ list_of_files = [
     f"{project_name}/pipeline/__init__.py",
     f"{project_name}/utils/__init__.py",
     'setup.py', 'app.py', 'requirements.txt',
-    'Dockerfile', "config/config.yaml"
+    'Dockerfile', "config/model.yaml", "config/schema.yaml"
 ]
 
 for filepath in list_of_files:
