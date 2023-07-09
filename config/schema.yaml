@@ -4,8 +4,6 @@ columns:
   - MinTemp: float64
   - MaxTemp: float64
   - Rainfall: float64
-  - Evaporation: float64
-  - Sunshine: float64
   - WindGustDir: object
   - WindGustSpeed: float64
   - WindDir9am: object
@@ -29,8 +27,6 @@ numerical_columns:
   - MinTemp
   - MaxTemp
   - Rainfall
-  - Evaporation
-  - Sunshine
   - WindGustSpeed
   - WindSpeed9am
   - WindSpeed3am
