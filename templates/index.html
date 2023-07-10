@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shipping Cost Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container-fluid">
+        </div>
+     </nav>
+    <section>
+        <div class="container-fluid">
+            <div class="container">
+                <form action="/predict" method="post">
+                    <legend>Rain Prediction</legend>
+
+                      <div class="mb-3">
+                        <label for="Date">LIMIT_BAL</label>
+                        <input type="date" class="form-control" id="Date" name="Date" placeholder="date" required="required">
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="Location">Location</label>
+                        <select class="form-control" id="Location" name="Location" placeholder="Location" required="required">
+                          <option value="" disabled selected>Location</option>
+                          <option>Albury</option>
+                        </select>
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="MinTemp">MinTemp</label>
+                        <input type="number" class="form-control" id="MinTemp" name="MinTemp" placeholder="float" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="MaxTemp">MaxTemp</label>
+                        <input type="number" class="form-control" id="MaxTemp" name="MaxTemp" placeholder="float" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Rainfall">Rainfall</label>
+                        <input type="number" class="form-control" id="Rainfall" name="Rainfall" placeholder="float" required="required">
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="WindGustDir">WindGustDir</label>
+                        <select class="form-control" id="WindGustDir" name="WindGustDir" placeholder="WindGustDir" required="required">
+                          <option value="" disabled selected>WindGustDir</option>
+                          <option>W</option>
+                          <option>WNW</option>
+                          <option>WSW</option>
+                          <option>NE</option>
+                          <option>NNW</option>
+                          <option>N</option>
+                          <option>NNE</option>
+                          <option>SW</option>
+                          <option>ENE</option>
+                          <option>SSE</option>
+                          <option>S</option>
+                          <option>NW</option>
+                          <option>SE</option>
+                          <option>ESE</option>
+                          <option>E</option>
+                          <option>SSW</option>
+                        </select>
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="WindGustSpeed">WindGustSpeed</label>
+                        <input type="number" class="form-control" id="WindGustSpeed" name="WindGustSpeed" placeholder="float" required="required">
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="WindDir9am">WindDir9am</label>
+                        <select class="form-control" id="WindDir9am" name="WindDir9am" placeholder="WindDir9am" required="required">
+                          <option value="" disabled selected>WindDir9am</option>
+                          <option>W</option>
+                          <option>WNW</option>
+                          <option>WSW</option>
+                          <option>NE</option>
+                          <option>NNW</option>
+                          <option>N</option>
+                          <option>NNE</option>
+                          <option>SW</option>
+                          <option>ENE</option>
+                          <option>SSE</option>
+                          <option>S</option>
+                          <option>NW</option>
+                          <option>SE</option>
+                          <option>ESE</option>
+                          <option>E</option>
+                          <option>SSW</option>
+                        </select>
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="WindDir3pm">WindDir3pm</label>
+                        <select class="form-control" id="WindDir3pm" name="WindDir3pm" placeholder="WindDir3pm" required="required">
+                          <option value="" disabled selected>WindDir3pm</option>
+                          <option>W</option>
+                          <option>WNW</option>
+                          <option>WSW</option>
+                          <option>NE</option>
+                          <option>NNW</option>
+                          <option>N</option>
+                          <option>NNE</option>
+                          <option>SW</option>
+                          <option>ENE</option>
+                          <option>SSE</option>
+                          <option>S</option>
+                          <option>NW</option>
+                          <option>SE</option>
+                          <option>ESE</option>
+                          <option>E</option>
+                          <option>SSW</option>
+                        </select>
+                      </div>
+
+
+					  <div class="mb-3">
+                        <label for="WindSpeed9am">WindSpeed9am</label>
+                        <input type="number" class="form-control" id="WindSpeed9am" name="WindSpeed9am" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="WindSpeed3pm">WindSpeed3pm</label>
+                        <input type="number" class="form-control" id="WindSpeed3pm" name="WindSpeed3pm" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Humidity9am">Humidity9am</label>
+                        <input type="number" class="form-control" id="Humidity9am" name="Humidity9am" placeholder="int" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Humidity3pm">Humidity3pm</label>
+                        <input type="number" class="form-control" id="Humidity3pm" name="Humidity3pm" placeholder="int" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Pressure9am">Pressure9am</label>
+                        <input type="number" class="form-control" id="Pressure9am" name="Pressure9am" placeholder="float" required="required">
+                      </div>
+
+
+					  <div class="mb-3">
+                        <label for="Pressure3pm">Pressure3pm</label>
+                        <input type="number" class="form-control" id="Pressure3pm" name="Pressure3pm" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Cloud9am">Cloud9am</label>
+                        <input type="number" class="form-control" id="Cloud9am" name="Cloud9am" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Cloud3pm">Cloud3pm</label>
+                        <input type="number" class="form-control" id="Cloud3pm" name="Cloud3pm" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Temp9am">Temp9am</label>
+                        <input type="number" class="form-control" id="Temp9am" name="Temp9am" placeholder="float" required="required">
+                      </div>
+
+					  <div class="mb-3">
+                        <label for="Temp3pm">Temp3pm</label>
+                        <input type="number" class="form-control" id="Temp3pm" name="Temp3pm" placeholder="float" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="RainToday">RainToday</label>
+                        <select class="form-control" id="RainToday" name="RainToday" placeholder="RainToday" required="required">
+                          <option value="" disabled selected>RainToday</option>
+                          <option>Yes</option>
+                          <option>No</option>
+                          <option>NA</option>
+                        </select>
+                      </div>
+
+
+					  <div class="mb-3">
+                        <label for="RISK_MM">RISK_MM</label>
+                        <input type="number" class="form-control" id="RISK_MM" name="RISK_MM" placeholder="float" required="required">
+                      </div>
+
+
+                        <input class="btn btn-primary" type="submit" value="Predict" required />
+                    </div>
+
+                </form>
+            </div>
+            <div class="text-center text-black">
+                <h2 class="display-4 fw-bolder">The Customer is  {{context}} </h2>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(".input").focus(function(){
+            $(this).parent().addClass("focus");
+        }).blur(function(){
+            if($(this).val() === ''){
+                $(this).parent().removeClass("focus");
+            }
+        })
+    </script>
+  </body>
+</html>

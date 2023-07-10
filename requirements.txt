@@ -12,8 +12,10 @@ ipykernel
 matplotlib
 PyYAML
 scikit-learn==1.2.2
+flask_cors
 seaborn
 from-root
+flask
 xgboost
 dill
 evidently
