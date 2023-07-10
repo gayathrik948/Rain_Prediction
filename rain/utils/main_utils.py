@@ -8,11 +8,13 @@ import yaml
 from pandas import DataFrame
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 from sklearn.utils import all_estimators
 from yaml import safe_dump
 from rain.constants import *
 from rain.exceptions import rainPredictionException
 from rain.logger import logging
+from rain.components.output_label_encoding import TargetValueMapping
 
 
 
@@ -82,6 +84,7 @@ class MainUtils:
     def get_model_score(test_y: DataFrame, preds: DataFrame) -> float:
         logging.info("Entered the get_model_score method of MainUtils class")
         try:
+            test_y = test_y.replace(TargetValueMapping().to_dict())
             model_score = accuracy_score(test_y, preds)
             logging.info("Model score is {}".format(model_score))
             logging.info("Exited the get_model_score method of MainUtils class")
@@ -200,3 +203,4 @@ class MainUtils:
 
         except Exception as e:
             raise rainPredictionException(e, sys) from e
+

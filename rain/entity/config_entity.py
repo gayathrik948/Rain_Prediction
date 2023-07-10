@@ -1,7 +1,7 @@
 from rain.constants import *
 from dataclasses import dataclass
 from rain.utils.main_utils import MainUtils
-
+from rain.configuration.s3_operations import S3Operation
 import os
 from from_root import from_root
 @dataclass
@@ -61,3 +61,19 @@ class ModelTrainerConfig:
         self.MODEL_TRAINER_ARTIFACT_DIR:str = os.path.join(from_root(),
                                                            ARTIFACTS_DIR, MODEL_TRAINER_ARTIFACTS_DIR)
         self.TRAINED_MODEL_FILE_PATH:str = os.path.join(self.MODEL_TRAINER_ARTIFACT_DIR, MODEL_FILE_NAME)
+
+
+@dataclass
+class ModelEvaluationConfig:
+    def __init__(self):
+        self.S3_OPERATION = S3Operation()
+        self.UTILS = MainUtils()
+        self.S3_BUCKET_NAME:str = BUCKET_NAME
+
+@dataclass
+class ModelPusherConfig:
+    def __init__(self):
+        self.S3_BUCKET_NAME:str = BUCKET_NAME
+        self.S3_MODEL_PATH:str = os.path.join(S3_MODEL_NAME)
+
+

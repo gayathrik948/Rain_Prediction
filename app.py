@@ -51,7 +51,7 @@ class DataForm:
         self.RainToday: Optional[str] = None
         self.RISK_MM: Optional[str] = None
 
-    async def get_bankchurn_data(self):
+    async def get_rain_data(self):
         form = await self.request.form()
         self.Date = form.get("Date")
         self.Location = form.get("Location")
@@ -82,6 +82,7 @@ async def trainRouteClient():
         train_pipeline = TrainingPipeline()
         train_pipeline.run_pipeline()
         return Response("Training successful !!")
+
     except Exception as e:
         return Response(f"Error Occurred! {e}")
 
@@ -93,6 +94,7 @@ async def predictGetRouteClient(request: Request):
             "index.html",
             {"request": request, "context": "Rendering"},
         )
+
     except Exception as e:
         return Response(f"Error Occurred! {e}")
 
@@ -101,8 +103,8 @@ async def predictGetRouteClient(request: Request):
 async def predictRouteClient(request: Request):
     try:
         form = DataForm(request)
-        await form.get_bankchurn_data()
-        bankchurn_data = RainPredictionData(
+        await form.get_rain_data()
+        rain_data = RainPredictionData(
             Date=form.Date,
             Location=form.Location,
             MinTemp=form.MinTemp,
@@ -126,7 +128,7 @@ async def predictRouteClient(request: Request):
             RISK_MM=form.RISK_MM
         )
 
-        cost_df = bankchurn_data.get_input_data_frame()
+        cost_df = rain_data.get_input_data_frame()
         cost_predictor = CostPredictor()
         cost_value = (cost_predictor.predict(X=cost_df)[0], 2)
 

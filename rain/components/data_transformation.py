@@ -10,7 +10,7 @@ from rain.exceptions import rainPredictionException
 import sys
 from pandas import DataFrame
 import numpy as np
-from imblearn.combine import SMOTETomek
+from rain.components.output_label_encoding import TargetValueMapping
 
 from rain.logger import logging
 
@@ -72,7 +72,7 @@ class DataTransformation:
     def initiate_data_transformation(self)->DataTransformationArtifacts:
         try:
             os.makedirs(self.data_transformation_config.DATA_TRANSFORMATION_ARTIFACT_DIR, exist_ok=True)
-            le = LabelEncoder()
+
             preprocessor = self.get_data_transformation_object()
 
             target_column = self.data_transformation_config.SCHEMA_CONFIG["target_column"]
@@ -85,8 +85,8 @@ class DataTransformation:
             input_feature_train_df = self.train_set.drop(columns=[target_column], axis=1).reset_index(drop=True)
             input_feature_train_arr = preprocessor.fit_transform(input_feature_train_df)
             target_feature_train_df = self.train_set[target_column].reset_index(drop=True)
-            target_feature_train_arr = le.fit_transform(target_feature_train_df)
-            target_feature_train_arr = np.reshape(target_feature_train_arr, (-1, 1))
+            target_feature_train_df = target_feature_train_df.replace(TargetValueMapping().to_dict())
+            target_feature_train_arr = np.reshape(target_feature_train_df, (-1, 1))
             train_arr = np.c_[input_feature_train_arr.todense(), np.array(target_feature_train_arr)]
             os.makedirs(self.data_transformation_config.TRANSFORMED_TRAIN_ARTIFACT_DATA_DIR, exist_ok=True)
             transformed_train_file = self.data_transformation_config.UTILS.save_numpy_array_data(
@@ -97,8 +97,8 @@ class DataTransformation:
             input_feature_test_df = self.test_set.drop(columns=[target_column], axis=1).reset_index(drop=True)
             input_feature_test_arr = preprocessor.transform(input_feature_test_df)
             target_feature_test_df= self.test_set[target_column].reset_index(drop=True)
-            target_feature_test_arr = le.fit_transform(target_feature_test_df)
-            target_feature_test_arr = np.reshape(target_feature_test_arr, (-1, 1))
+            target_feature_test_df = target_feature_test_df.replace(TargetValueMapping().to_dict())
+            target_feature_test_arr = np.reshape(target_feature_test_df, (-1, 1))
             test_arr = np.c_[input_feature_test_arr.todense(), np.array(target_feature_test_arr)]
             os.makedirs(self.data_transformation_config.TRANSFORMED_TEST_ARTIFACT_DATA_DIR, exist_ok=True)
             transformed_test_file = self.data_transformation_config.UTILS.save_numpy_array_data(

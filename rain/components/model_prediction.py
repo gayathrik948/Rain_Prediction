@@ -4,8 +4,13 @@ from pandas import DataFrame
 import pandas as pd
 from rain.constants import *
 from rain.exceptions import rainPredictionException
-from rain.entity.artifacts_entity import ModelTrainerArtifacts
 from rain.utils.main_utils import MainUtils
+import sys
+from typing import Dict
+from pandas import DataFrame
+import pandas as pd
+from rain.configuration.s3_operations import S3Operation
+
 
 class RainPredictionData:
     def __init__(self,
@@ -94,13 +99,15 @@ class RainPredictionData:
 
 
 class CostPredictor:
+    def __init__(self):
+        self.s3 = S3Operation()
+        self.bucket_name = BUCKET_NAME
 
 
     def predict(self, X)->float:
         try:
-            utils = MainUtils()
-            trained_model = ModelTrainerArtifacts()
-            best_model = utils.load_object(trained_model.trained_model_file_path)
+            best_model = self.s3.load_model(MODEL_FILE_NAME,
+                                            self.bucket_name)
             result = best_model.predict(X)
             return result
         except Exception as e:
